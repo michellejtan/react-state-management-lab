@@ -7,6 +7,7 @@ let totalAgility = 0;
 const App = () => {
   const [team, setTeam] = useState([]);
   const [money, setMoney] = useState(100);
+  const [enoughMoney, setEnoughMoney] = useState(false);
   const [zombieFighters, setZombieFighters] = useState([
     {
       id: 1,
@@ -89,7 +90,7 @@ const App = () => {
       img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/e41f26.png',
     },
   ]);
-  
+
   const handleRemoveFighter = (fighter) => {
     //remove fighter from picked team members
     const updatedTeam = team.filter((member) => member.id !== fighter.id);
@@ -119,12 +120,16 @@ const App = () => {
   const handleAddFighter = (fighter) => {
     // check if you have enough money to afford character to team
     if (fighter.price > money) {
-      console.log("Not Enough Money");
+      // console.log("Not Enough Money");
+      setEnoughMoney(true);
+
     } else {
       //subtract the cost of the fighter from current money
       const funds = money - fighter.price;
       //set the sate of the money
       setMoney(funds);
+      setEnoughMoney(false);
+
       //create a new team array for the fighter to be added
       const newTeamFighters = [...team, fighter];
       //update the team's state with the new fighter
@@ -147,10 +152,13 @@ const App = () => {
 
     }
   };
+
   return (
     <>
       <h1>Zombie Fighters</h1>
       <h2>Money: {money}</h2>
+      <p>{enoughMoney ? 'Not enough money!' : ''}</p>
+
       <h2>Team Strength: {totalStrength}</h2>
       <h2>Team Agility: {totalAgility}</h2>
       <h2>Team</h2>

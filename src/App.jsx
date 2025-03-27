@@ -1,8 +1,8 @@
 import { useState } from "react";
 import './App.css';
 
-let totalStrength =0;
-let totalAgility=0;
+let totalStrength = 0;
+let totalAgility = 0;
 
 const App = () => {
   const [team, setTeam] = useState([]);
@@ -89,7 +89,33 @@ const App = () => {
       img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/e41f26.png',
     },
   ]);
-  const handleRemoveFighter = (fighter) => { };
+  
+  const handleRemoveFighter = (fighter) => {
+    //remove fighter from picked team members
+    const updatedTeam = team.filter((member) => member.id !== fighter.id);
+
+    const funds = money + fighter.price;
+
+    totalStrength = updatedTeam.reduce(
+      (acc, member) => acc + member.strength,
+      0
+    );
+
+    totalAgility = updatedTeam.reduce(
+      (acc, member) => acc + member.agility,
+      0
+    );
+
+    // add fighter back to Zombie Fighters
+    const updatedZombieFighters = [...zombieFighters, fighter];
+
+    //update changed states
+    setTeam(updatedTeam);
+    setZombieFighters(updatedZombieFighters);
+    // refunding the cost
+    setMoney(funds);
+  };
+
   const handleAddFighter = (fighter) => {
     // check if you have enough money to afford character to team
     if (fighter.price > money) {
@@ -133,7 +159,7 @@ const App = () => {
         <p>Pick Some Team Members</p>
       ) : (
         <>
-         {/* <p>Total Strength:{totalStrength}</p>
+          {/* <p>Total Strength:{totalStrength}</p>
          <p>Total Agility: {totalAgility}</p> */}
           <ul>
             {team.map((member) => (

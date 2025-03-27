@@ -1,8 +1,8 @@
 import { useState } from "react";
 import './App.css';
 
-let totalStrength;
-let totalAgility;
+let totalStrength =0;
+let totalAgility=0;
 
 const App = () => {
   const [team, setTeam] = useState([]);
@@ -122,17 +122,19 @@ const App = () => {
     }
   };
   return (
-
     <>
       <h1>Zombie Fighters</h1>
       <h2>Money: {money}</h2>
+      <h2>Team Strength: {totalStrength}</h2>
+      <h2>Team Agility: {totalAgility}</h2>
+      <h2>Team</h2>
+
       {team.length === 0 ? (
         <p>Pick Some Team Members</p>
       ) : (
         <>
-          <h2>My Team</h2>
-          <p>Total Strength:{totalStrength}</p>
-          <p>Total Agility: {totalAgility}</p>
+         {/* <p>Total Strength:{totalStrength}</p>
+         <p>Total Agility: {totalAgility}</p> */}
           <ul>
             {team.map((member) => (
               <li key={member.id}>
@@ -150,7 +152,7 @@ const App = () => {
         </>
       )}
 
-      <h2> Fighters:</h2>
+      <h2>Fighters:</h2>
       <ul>
         {zombieFighters.map(zombieFighter => (
           <li key={zombieFighter.id}>
@@ -159,7 +161,7 @@ const App = () => {
             <p>Price: {zombieFighter.price}</p>
             <p>Strength: {zombieFighter.strength}</p>
             <p>Agility: {zombieFighter.agility}</p>
-            <button onClick={() => handleAddFighter(fighter)}>Add To Team</button>
+            <button onClick={() => handleAddFighter(zombieFighter)}>Add To Team</button>
           </li>
 
         ))}

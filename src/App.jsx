@@ -1,6 +1,8 @@
 import { useState } from "react";
 import './App.css';
 
+let totalStrength;
+let totalAgility;
 
 const App = () => {
   const [team, setTeam] = useState([]);
@@ -87,7 +89,7 @@ const App = () => {
       img: 'https://pages.git.generalassemb.ly/modular-curriculum-all-courses/react-state-management-lab/assets/e41f26.png',
     },
   ]);
-
+  const handleRemoveFighter = (fighter) => { };
   const handleAddFighter = (fighter) => {
     // check if you have enough money to afford character to team
     if (fighter.price > money) {
@@ -107,6 +109,15 @@ const App = () => {
       );
       //update zombie fighters
       setZombieFighters(newZombieFighters);
+
+      totalStrength = newTeamFighters.reduce(
+        (acc, member) => acc + member.strength,
+        0
+      );
+      totalAgility = newTeamFighters.reduce(
+        (acc, member) => acc + member.agility,
+        0
+      );
 
     }
   };
